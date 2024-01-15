@@ -32,12 +32,6 @@ func(h *Handler)GetBooks(c *gin.Context) {
 func (h *Handler) GetBookById(c *gin.Context) {
 	var book models.Book
 	bookId := c.Param("id")
-	fmt.Println("unparsed:", bookId)
-	// ID, err := strconv.ParseInt(bookId, 10, 64)
-	// if err != nil {
-	// 	fmt.Println("error while parsing")
-	// }
-
 	if result := h.db.Where("ID=?", bookId).Find(&book); result.Error != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"error": result.Error.Error(),
